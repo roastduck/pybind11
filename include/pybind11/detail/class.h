@@ -88,6 +88,8 @@ inline PyTypeObject *make_static_property_type() {
     }
 
     setattr((PyObject *) type, "__module__", str("pybind11_builtins"));
+    setattr((PyObject *) type, "__no_type_check__", bool_(true));
+    // Until Python 3.10, we need to disable typing because it does not support fake module
     PYBIND11_SET_OLDPY_QUALNAME(type, name_obj);
 
     return type;
@@ -277,6 +279,8 @@ inline PyTypeObject *make_default_metaclass() {
     }
 
     setattr((PyObject *) type, "__module__", str("pybind11_builtins"));
+    setattr((PyObject *) type, "__no_type_check__", bool_(true));
+    // Until Python 3.10, we need to disable typing because it does not support fake module
     PYBIND11_SET_OLDPY_QUALNAME(type, name_obj);
 
     return type;
@@ -498,6 +502,8 @@ inline PyObject *make_object_base_type(PyTypeObject *metaclass) {
     }
 
     setattr((PyObject *) type, "__module__", str("pybind11_builtins"));
+    setattr((PyObject *) type, "__no_type_check__", bool_(true));
+    // Until Python 3.10, we need to disable typing because it does not support fake module
     PYBIND11_SET_OLDPY_QUALNAME(type, name_obj);
 
     assert(!PyType_HasFeature(type, Py_TPFLAGS_HAVE_GC));
